@@ -4,25 +4,56 @@
         <link href="css/reset.css" rel="stylesheet" />
         <link href="css/slider.css" rel="stylesheet" />
     </head>
-    <body>
+    <body> 
         <div class="slider-container" id="slider">
             <div class="slider-item">
-                <h2>Título 1</h2>
-                <p>Descrição 1</p>
+                <div class="slider-content">
+                    <a href="teste">
+                        <h2>titulo 1</h2>
+                        <p>descricao 1</p>
+                        <p class="button">Leia Mais</p>
+                    </a>
+                </div>
                 <img src="imgs/img-1.jpg" />
             </div>
             <div class="slider-item">
-                <h2>Título 2</h2>
-                <p>Descrição 2</p>
+                <div class="slider-content">
+                    <h2>titulo 2</h2>
+                    <p>descricao 2</p>
+                    <a href="teste">Teste</a>
+                </div>
                 <img src="imgs/img-2.jpg" />
             </div>
             <div class="slider-item">
-                <h2>Título 3</h2>
-                <p>Descrição 3</p>
+                <div class="slider-content">
+                    <h2>titulo 3</h2>
+                    <p>descricao 3</p>
+                    <a href="teste">Teste</a>
+                </div>
                 <img src="imgs/img-3.jpg" />
             </div>
-            <span onclick="prevSlide();">Prev</span>
-            <span onclick="nextSlide();">Next</span>
+            <div class="slider-menu">
+                <div class="slider-menu-item">
+                    <a href="javascript:void();" onclick="clickShowSlide(0);">
+                        <h1>Teste</h1>
+                        <p>Descricao</p>
+                    </a>
+                </div>
+                <div class="slider-menu-item" >
+                    <a href="javascript:void();" onclick="clickShowSlide(1);">
+                        <h1>Teste</h1>
+                        <p>Descricao</p>
+                    </a>
+                </div>
+                <div class="slider-menu-item">
+                    <a href="javascript:void();" onclick="clickShowSlide(2);">
+                        <h1>Teste</h1>
+                        <p>Descricao</p>
+                    </a>
+                </div>
+            </div>
+            <span onclick="prevSlide();" class="prev">&#8592;</span>
+            <span onclick="nextSlide();" class="next">&#8594;</span>
             <div class="slider-bar"></div>
         </div>
         <script src="js/slider.js"></script>
