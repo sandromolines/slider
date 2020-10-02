@@ -1,4 +1,4 @@
-var slides = document.querySelectorAll('.slider-container div');
+var slides = document.querySelectorAll('.slider-item');
 var bar = document.querySelector('.slider-bar');
 var currentSlide = 0;
 var auto = true;
@@ -6,7 +6,7 @@ var autoTime = 3000;
 
 function prevSlide() {
     currentSlide--;
-    if(currentSlide < 0) currentSlide = slides.length - 2;
+    if(currentSlide < 0) currentSlide = slides.length - 1;
     hiddenSlides();
     showSlide();
     clearInterval(autoPlay);
@@ -15,7 +15,7 @@ function prevSlide() {
 
 function nextSlide() {
     currentSlide++;
-    if(currentSlide == slides.length - 1) currentSlide = 0;
+    if(currentSlide == slides.length) currentSlide = 0;
     hiddenSlides();
     showSlide();
     clearInterval(autoPlay);
@@ -30,6 +30,11 @@ function hiddenSlides() {
 
 function showSlide() {
     slides[currentSlide].classList.add('show');
+}
+
+function clickShowSlide(selectSlide) {
+    hiddenSlides();
+    slides[selectSlide].classList.add('show');
 }
 
 function barStatus() {
@@ -51,7 +56,7 @@ function barStatus() {
 
 if(auto) {
     var autoPlay = setInterval(() => {
-        (currentSlide == slides.length - 2) ? currentSlide = 0 : currentSlide++;
+        (currentSlide == slides.length - 1) ? currentSlide = 0 : currentSlide++;
         hiddenSlides();
         slides[currentSlide].classList.add('show');
         barStatus();
