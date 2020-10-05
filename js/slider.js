@@ -1,72 +1,96 @@
-var slides = document.querySelectorAll('.slider-item');
-var bar = document.querySelector('.slider-bar');
-var currentSlide = 0;
-var auto = true;
-var autoTime = 3000;
+class Slider { 
 
-function prevSlide() {
-    currentSlide--;
-    if(currentSlide < 0) currentSlide = slides.length - 1;
-    hiddenSlides();
-    showSlide();
-    clearInterval(autoPlay);
-    bar.style = 'display: none';
-}
+    slides = document.querySelectorAll('.slider-item');
+    slideId = document.getElementById('slider');
+    bar = document.querySelector('.slider-bar');
+    currentSlide = 0;
+    auto = true;
+    autoTime = 3000;
 
-function nextSlide() {
-    currentSlide++;
-    if(currentSlide == slides.length) currentSlide = 0;
-    hiddenSlides();
-    showSlide();
-    clearInterval(autoPlay);
-    bar.style = 'display: none';
-}
 
-function hiddenSlides() {
-    slides.forEach((slide) => {
-        slide.classList.remove('show');
-    })
-}
+    constructor(selectorId) {
+        this.selectorId = selectorId;
+        this.hiddenSlides();
+        this.showSlide();
+        if(this.auto) this.barStatus();
+        this.autoPlay(this.auto);
+    }
 
-function showSlide() {
-    slides[currentSlide].classList.add('show');
-}
 
-function clickShowSlide(selectSlide) {
-    hiddenSlides();
-    slides[selectSlide].classList.add('show');
-}
+    prevSlide() {
+        this.currentSlide--;
+        if(this.currentSlide < 0) this.currentSlide = this.slides.length - 1;
+        this.hiddenSlides();
+        this.showSlide();
+        this.autoPlay(false);
+        this.bar.style = 'display: none';
+    }
 
-function barStatus() {
-    var widthBar = 1;
-    var idBar = setInterval(frame, 20);
-    function frame() {
-        document.getElementById('slider').addEventListener('click', function() {
+    nextSlide() {
+        this.currentSlide++;
+        if(this.currentSlide == this.slides.length) this.currentSlide = 0;
+        this.hiddenSlides();
+        this.showSlide();
+        this.autoPlay(this.auto = false);
+        this.bar.style = 'display: none';
+    }
+
+    hiddenSlides() {
+        this.slides.forEach((slide) => {
+            slide.classList.remove('show');
+        })
+    }
+
+    showSlide() {
+        this.slides[this.currentSlide].classList.add('show');
+    }
+
+    clickShowSlide(selectSlide) {
+        this.hiddenSlides();
+        this.slides[selectSlide].classList.add('show');
+    }
+
+    barStatus() {
+        var widthBar = 1;
+        var idBar = setInterval(frame, 20);
+        var barStyle = this.bar;
+        
+        this.slideId.addEventListener('click', function() {
             clearInterval(idBar);
         });
 
-        if(widthBar >= 100) {
-            clearInterval(idBar);
-        } else {
-            widthBar++;
-            bar.style.width = widthBar + '%';
+        function frame() {
+            if(widthBar >= 100) {
+                clearInterval(idBar);
+            } else {
+                widthBar++;
+                barStyle.style.width = widthBar + '%';
+            }
         }
     }
-}
 
-if(auto) {
-    var autoPlay = setInterval(() => {
-        (currentSlide == slides.length - 1) ? currentSlide = 0 : currentSlide++;
-        hiddenSlides();
-        slides[currentSlide].classList.add('show');
-        barStatus();
-    }, autoTime);
-}
+    /*
+    clickToStop() {
+        this.slideId.addEventListener('click', function() {
+            clearInterval(autoPlay);
+        });
+    }
+    */
 
-document.getElementById('slider').addEventListener('click', function() {
-    clearInterval(autoPlay);
-});
+    autoPlayFunction() {
+        (this.currentSlide == this.slides.length - 1) ? this.currentSlide = 0 : this.currentSlide++;
+        this.hiddenSlides();
+        this.slides[this.currentSlide].classList.add('show');
+        this.barStatus();
+    }
+
+    autoPlay(auto) {
+        var play = setInterval(() => this.autoPlayFunction(), this.autoTime)
+        clearInterval(play);
+        
+    }
     
-hiddenSlides();
-showSlide();
-barStatus();
+        
+}
+
+slider = new Slider({selectorId: 'slider'});
