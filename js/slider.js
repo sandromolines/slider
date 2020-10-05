@@ -1,22 +1,22 @@
 class Slider { 
 
-    slides = document.querySelectorAll('.slider-item');
-    slideId = document.getElementById('slider');
-    bar = document.querySelector('.slider-bar');
+    selectorId;
+    slideId = document.getElementById(selectorId);
+    slides = this.slideId.querySelectorAll('.slider-item');
+    bar = this.slideId.querySelector('.slider-bar');
     currentSlide = 0;
     auto = true;
     autoTime = 3000;
 
-
     constructor(selectorId) {
         this.selectorId = selectorId;
+
         this.hiddenSlides();
         this.showSlide();
         if(this.auto) this.barStatus();
         this.autoPlay(this.auto);
         this.clickToStop();
     }
-
 
     prevSlide() {
         this.currentSlide--;
@@ -53,21 +53,17 @@ class Slider {
 
     barStatus() {
         var widthBar = 1;
-        var idBar = setInterval(frame, 20);
-        var barStyle = this.bar;
+        var idBar = setInterval(() => {
+                if(widthBar >= 100) clearInterval(idBar)
+                else {
+                    widthBar++;
+                    this.bar.style.width = widthBar + '%';
+                }
+            }, (this.autoTime / 100));
         
         this.slideId.addEventListener('click', function() {
             clearInterval(idBar);
         });
-
-        function frame() {
-            if(widthBar >= 100) {
-                clearInterval(idBar);
-            } else {
-                widthBar++;
-                barStyle.style.width = widthBar + '%';
-            }
-        }
     }
 
     
@@ -84,7 +80,6 @@ class Slider {
             this.hiddenSlides();
             this.slides[this.currentSlide].classList.add('show');
             this.barStatus();
-            console.log(this.auto);
         } else {
             this.autoPlay();
         }
@@ -100,4 +95,4 @@ class Slider {
         
 }
 
-slider = new Slider({selectorId: 'slider'});
+slider = new Slider(selectorId = 'slider');
