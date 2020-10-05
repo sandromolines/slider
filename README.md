@@ -22,5 +22,3 @@ Structure:
 ---- html content (add the onclick button)
 -- html of prev and next
 -- slider-bar ( status bar )
-
-   d
