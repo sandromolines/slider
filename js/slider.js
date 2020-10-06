@@ -1,15 +1,14 @@
 class Slider { 
 
-    selectorId;
     slideId = document.getElementById(selectorId);
     slides = this.slideId.querySelectorAll('.slider-item');
     bar = this.slideId.querySelector('.slider-bar');
     currentSlide = 0;
-    auto = true;
-    autoTime = 3000;
 
-    constructor(selectorId) {
+    constructor(selectorId = 'slider', auto = true, autoTime = 3000) {
         this.selectorId = selectorId;
+        this.auto = auto;
+        this.autoTime = autoTime;
 
         this.hiddenSlides();
         this.showSlide();
@@ -94,5 +93,3 @@ class Slider {
     
         
 }
-
-slider = new Slider(selectorId = 'slider');
